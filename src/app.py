@@ -25,6 +25,8 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
+#GET ALL Method 
+
 @app.route('/members', methods=['GET'])
 def handle_hello():
 
@@ -37,6 +39,26 @@ def handle_hello():
 
 
     return jsonify(response_body), 200
+
+#POST Method 
+
+@app.route('/members' , methods=['POST'])
+
+def handle_add_member():
+    json_data = request.get_json()
+    required_keys = ["first_name", "age", "lucky_numbers"]
+    for key in required_keys:
+        if key not in  json_data:
+            return f"Missing {key} key from request body", 400
+    
+    new_member = {
+        "first_name" : json_data ["first_name"],
+        "age" : json_data ["age"],
+        "lucky_numbers" : json_data ["lucky_numbers"],
+    }
+
+    inner_member_data = jackson_family.add_member(new_member)
+    return jsonify (inner_member_data), 201
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
