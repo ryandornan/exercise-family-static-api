@@ -49,17 +49,27 @@ class FamilyStructure:
             }
         self._members.append(inner_member)
         return inner_member
-    
-        
-        pass
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
-
+        member_to_delete = self.get_member(id):
+        self._members.remove(member_to_delete)
+        return ("Member deleted succesfully.")
+    
+    def update_member(self, id, updated_member):
+        for i, member in enumerate (self._members):
+            if member["id"] == id:
+                for key, value in updated_member.items():
+                       if key in self._members[i]:
+                        self._members[i][key] = value
+                return {"message": "Member updated ", "updated_member": updated_member}
+     
     def get_member(self, id):
         # fill this method and update the return
-        pass
+        for member in self._members:
+            if member["id"] == id:
+                return member
+        return None
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
